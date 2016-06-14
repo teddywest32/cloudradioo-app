@@ -18,4 +18,4 @@ const mutations = {
   }
 };
 
-export default {state, mutations}
+export default {state, mutations};

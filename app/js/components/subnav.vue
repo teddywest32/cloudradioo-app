@@ -80,6 +80,6 @@
         return this.userFilters[key];
       }
     }
-  }
+  };
 
 </script>

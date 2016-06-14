@@ -9,7 +9,7 @@ const state = {
   apiUrl: null,
   lastTrackIndex: null,
   countPrevious: 0,
-  volume: .75
+  volume: 0.75
 };
 
 const mutations = {
@@ -21,11 +21,11 @@ const mutations = {
   INIT_HISTORY(state) {
     let savedHistory = localStorage.getItem('user-history');
 
-    if(savedHistory !== null) {
+    if (savedHistory !== null) {
       let parsedHistory = JSON.parse(savedHistory);
 
       // Get only the last 50 tracks for history.
-      if(parsedHistory.length > 50) {
+      if (parsedHistory.length > 50) {
         state.history = parsedHistory.slice(Math.max(parsedHistory.length - 50, 1));
       } else {
         state.history = parsedHistory;
@@ -41,7 +41,7 @@ const mutations = {
   },
 
   ADD_ITEM_TO_HISTORY(state, item) {
-    if(state.history[state.history.length - 1].data !== item) {
+    if (state.history[state.history.length - 1].data !== item) {
       state.history.push({
         index: state.history.length,
         data: item
@@ -69,13 +69,13 @@ const mutations = {
   },
 
   PLAY_PAUSE(state) {
-    if(state.playing) {
+    if (state.playing) {
       state.audio.pause();
     } else {
       state.audio.play();
     }
 
-    state.playing = ! state.playing;
+    state.playing = !state.playing;
   },
 
   CREATE_AUDIO(state, id) {
@@ -84,7 +84,7 @@ const mutations = {
     // Change only the source and do not re-create the audio object.
     // If you skip a track, this track will continue in the background
     // and triggers the 'ended' event for the audio object.
-    if(state.audio === null) {
+    if (state.audio === null) {
       state.audio = new Audio(src);
     } else {
       state.audio.src = src;
@@ -97,10 +97,10 @@ const mutations = {
   INIT_VOLUME(state) {
     let savedVolume = localStorage.getItem('user-volume');
 
-    if(savedVolume !== null) {
+    if (savedVolume !== null) {
       state.volume = savedVolume;
     } else {
-      localStorage.setItem('user-volume', .75);
+      localStorage.setItem('user-volume', 0.75);
     }
   },
 
@@ -108,10 +108,10 @@ const mutations = {
     let volume = state.audio.volume;
     let slider = document.getElementById('volume');
 
-    if(type === 'increase') {
-      state.audio.volume = (volume + .1) > 1 ? 1 : volume + .1;
-    } else if(type == 'decrease') {
-      state.audio.volume = (volume - .1) < 0 ? 0 : volume - .1;
+    if (type === 'increase') {
+      state.audio.volume = (volume + 0.1) > 1 ? 1 : volume + 0.1;
+    } else if (type === 'decrease') {
+      state.audio.volume = (volume - 0.1) < 0 ? 0 : volume - 0.1;
     }
 
     localStorage.setItem('user-volume', state.audio.volume);
@@ -120,7 +120,7 @@ const mutations = {
   },
 
   CHANGE_VOLUME_BY(state, value) {
-    if(state.audio) {
+    if (state.audio) {
       state.audio.volume = value;
     }
     state.volume = value;
@@ -147,7 +147,7 @@ const mutations = {
       permalink_url: data.permalink_url,
       title: data.title,
       username: data.user.username
-    }
+    };
   },
 
   INIT_CURRENT_TRACK(state) {
@@ -155,12 +155,12 @@ const mutations = {
     state.countPrevious = 0;
 
     // Was last track played?
-    if(state.currentPlayingIndex == state.lastTrackIndex) {
+    if (state.currentPlayingIndex === state.lastTrackIndex) {
       state.currentPlayingIndex = 0;
     }
 
     // todo repeat
-    //if( ! state.repeat) {
+    // if ( ! state.repeat) {
       state.currentTrack = state.allTracks[state.currentPlayingIndex];
       state.currentPlayingIndex++;
 
@@ -170,11 +170,11 @@ const mutations = {
       });
 
       localStorage.setItem('user-history', JSON.stringify(state.history));
-    //} else {
+    // } else {
       // todo: check for index == 0
-      //state.currentTrack = state.allTracks[state.currentPlayingIndex - 1];
-    //}
+      // state.currentTrack = state.allTracks[state.currentPlayingIndex - 1];
+    // }
   }
 };
 
-export default {state, mutations}
+export default {state, mutations};

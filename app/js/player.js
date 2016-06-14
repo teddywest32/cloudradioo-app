@@ -23,7 +23,7 @@ let player = new Vue({
       started: false,
       audioSrc: null,
       sharedTrack: null
-    }
+    };
   },
 
   vuex: {
@@ -60,7 +60,7 @@ let player = new Vue({
         store.dispatch('INIT_ALL_TRACKS', value.data);
 
         // Is there an shared uri? Fetch the track and store them as currentTrack.
-        if(this.sharedTrack) {
+        if (this.sharedTrack) {
           this.$http.get(`http://api.soundcloud.com/tracks/${this.sharedTrack}?client_id=${this.apiKey}`).then(value => {
             store.dispatch('INIT_SHARED_TRACK', value.data);
             this.initPlayer();
@@ -76,7 +76,7 @@ let player = new Vue({
 
     initPlayer: function() {
       store.dispatch('CREATE_AUDIO', this.currentTrack.id);
-      notification.songPlayed()
+      notification.songPlayed();
       this.registerEventListener();
     },
 
@@ -87,7 +87,7 @@ let player = new Vue({
 
       // Close audio context for Firefox:
       // If we change the currentTime for the audio object, the volume gets louder and louder (bug?).
-      if(this.isFirefox && this.audioCtx !== null) {
+      if (this.isFirefox && this.audioCtx !== null) {
         this.audioCtx.close();
         this.audioCtx = null;
       }
@@ -102,12 +102,12 @@ let player = new Vue({
       let self = this;
 
       // We need to re-create the audio context in Firefox, because we close it earlier.
-      if(this.isFirefox) {
+      if (this.isFirefox) {
         this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         this.audioSrc = this.audioCtx.createMediaElementSource(this.audio);
       } else {
         // Chrome can only call one time 'createMediaElementSource' on audio context.
-        if( ! this.started) {
+        if (!this.started) {
           this.audioSrc = this.audioCtx.createMediaElementSource(this.audio);
           this.started = true;
         }
@@ -145,11 +145,11 @@ let player = new Vue({
             cx: '50%',
             cy: 1200 / 2,
             fill: 'rgba(106,49,84,.2)',
-            //fill: 'rgba(255,255,255,.01)',
-            //'stroke-width': 2,
+            // fill: 'rgba(255,255,255,.01)',
+            // 'stroke-width': 2,
             'stroke-width': 0,
-            //'stroke-opacity': .1,
-            //stroke: function(d) { return '#602b4b' }
+            // 'stroke-opacity': .1,
+            // stroke: function(d) { return '#602b4b' }
             stroke: '#fff'
           });
 

@@ -1,5 +1,5 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from 'vue';
+import Vuex from 'vuex';
 
 import progress from './modules/progress';
 import player from './modules/player';
@@ -15,4 +15,4 @@ export default new Vuex.Store({
     options,
     filter
   }
-})
+});

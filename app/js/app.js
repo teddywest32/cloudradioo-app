@@ -19,9 +19,7 @@ Vue.filter('reverse', reverse);
 
 Vue.config.debug = true;
 
-new Vue({
-  el: '.app',
-
+var app = new Vue({
   store,
 
   components: {
@@ -34,7 +32,7 @@ new Vue({
     // Set the base url for api
     store.dispatch('SET_API_URL', 'http://cloudradioo.com/');
 
-    //localStorage.clear();
+    // localStorage.clear();
     this.$http.get(this.$store.state.player.apiUrl + 'api/api-key').then(value => {
       store.dispatch('SET_API_KEY', value.data);
 
@@ -43,3 +41,5 @@ new Vue({
     });
   }
 });
+
+app.$mount('.app');

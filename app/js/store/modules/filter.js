@@ -8,7 +8,7 @@ const mutations = {
   INIT_FILTERS(state) {
     let savedFilters = localStorage.getItem('user-filters');
 
-    if(savedFilters === null) {
+    if (savedFilters === null) {
       state.userFilters = state.allGenres;
       setStorage(state.userFilters);
     } else {
@@ -27,7 +27,7 @@ const mutations = {
   },
 
   CHANGE_FILTER(state, key, value) {
-    if(state.userFilters[key]) {
+    if (state.userFilters[key]) {
       delete state.userFilters[key];
     } else {
       state.userFilters[key] = value;
@@ -41,4 +41,4 @@ function setStorage(userFilters) {
   localStorage.setItem('user-filters', JSON.stringify(userFilters));
 }
 
-export default {state, mutations}
+export default {state, mutations};
