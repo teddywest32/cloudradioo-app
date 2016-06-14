@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Resource from 'vue-resource';
-import notification from './notification'
-import d3 from 'd3'
+import notification from './notification';
+import d3 from 'd3';
 
 import { initCurrentTrack, initUserFilters, initUserHistory, initVolume } from './store/actions';
 
@@ -45,8 +45,6 @@ let player = new Vue({
 
   methods: {
     start: function() {
-      //this.parseURI();
-
       this.$http.get(this.apiUrl + 'api/all-genres').then(value => {
         store.dispatch('INIT_ALL_GENRES', value.data);
 
@@ -55,16 +53,6 @@ let player = new Vue({
         this.initUserHistory();
         this.initAllTracks();
       });
-    },
-
-    parseURI: function() {
-      let uri = window.location.pathname;
-
-      // If we develop locally with pathname like 'cloudradioo/public',
-      // we need to split the pathname to get the right shared track id.
-      let split = uri.split('/');
-
-      this.sharedTrack = split[split.length - 1];
     },
 
     initAllTracks: function() {
