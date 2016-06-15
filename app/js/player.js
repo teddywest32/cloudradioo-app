@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Resource from 'vue-resource';
-import notification from './notification'
-import d3 from 'd3'
+import notification from './notification';
+import d3 from 'd3';
 
 import { initCurrentTrack, initUserFilters, initUserHistory, initVolume } from './store/actions';
 
@@ -23,7 +23,7 @@ let player = new Vue({
       started: false,
       audioSrc: null,
       sharedTrack: null
-    }
+    };
   },
 
   vuex: {
@@ -44,9 +44,7 @@ let player = new Vue({
   },
 
   methods: {
-    start: function() {
-      //this.parseURI();
-
+    start() {
       this.$http.get(this.apiUrl + 'api/all-genres').then(value => {
         store.dispatch('INIT_ALL_GENRES', value.data);
 
@@ -57,22 +55,12 @@ let player = new Vue({
       });
     },
 
-    parseURI: function() {
-      let uri = window.location.pathname;
-
-      // If we develop locally with pathname like 'cloudradioo/public',
-      // we need to split the pathname to get the right shared track id.
-      let split = uri.split('/');
-
-      this.sharedTrack = split[split.length - 1];
-    },
-
-    initAllTracks: function() {
+    initAllTracks() {
       this.$http.get(this.apiUrl + 'api/songs', {filters: this.userFilters}).then(value => {
         store.dispatch('INIT_ALL_TRACKS', value.data);
 
         // Is there an shared uri? Fetch the track and store them as currentTrack.
-        if(this.sharedTrack) {
+        if (this.sharedTrack) {
           this.$http.get(`http://api.soundcloud.com/tracks/${this.sharedTrack}?client_id=${this.apiKey}`).then(value => {
             store.dispatch('INIT_SHARED_TRACK', value.data);
             this.initPlayer();
@@ -86,20 +74,20 @@ let player = new Vue({
       });
     },
 
-    initPlayer: function() {
+    initPlayer() {
       store.dispatch('CREATE_AUDIO', this.currentTrack.id);
-      notification.songPlayed()
+      notification.songPlayed();
       this.registerEventListener();
     },
 
-    startPlaying: function() {
+    startPlaying() {
       let title = this.currentTrack.title;
       let author = this.currentTrack.username;
       this.duration = this.currentTrack.duration;
 
       // Close audio context for Firefox:
       // If we change the currentTime for the audio object, the volume gets louder and louder (bug?).
-      if(this.isFirefox && this.audioCtx !== null) {
+      if (this.isFirefox && this.audioCtx !== null) {
         this.audioCtx.close();
         this.audioCtx = null;
       }
@@ -110,16 +98,16 @@ let player = new Vue({
       this.initAudioContext();
     },
 
-    initAudioContext: function() {
+    initAudioContext() {
       let self = this;
 
       // We need to re-create the audio context in Firefox, because we close it earlier.
-      if(this.isFirefox) {
+      if (this.isFirefox) {
         this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         this.audioSrc = this.audioCtx.createMediaElementSource(this.audio);
       } else {
         // Chrome can only call one time 'createMediaElementSource' on audio context.
-        if( ! this.started) {
+        if (!this.started) {
           this.audioSrc = this.audioCtx.createMediaElementSource(this.audio);
           this.started = true;
         }
@@ -157,11 +145,11 @@ let player = new Vue({
             cx: '50%',
             cy: 1200 / 2,
             fill: 'rgba(106,49,84,.2)',
-            //fill: 'rgba(255,255,255,.01)',
-            //'stroke-width': 2,
+            // fill: 'rgba(255,255,255,.01)',
+            // 'stroke-width': 2,
             'stroke-width': 0,
-            //'stroke-opacity': .1,
-            //stroke: function(d) { return '#602b4b' }
+            // 'stroke-opacity': .1,
+            // stroke: function(d) { return '#602b4b' }
             stroke: '#fff'
           });
 
@@ -171,7 +159,7 @@ let player = new Vue({
       renderSVG();
     },
 
-    registerEventListener: function() {
+    registerEventListener() {
       this.audio.removeEventListener('error', this.audioError);
       this.audio.removeEventListener('ended', this.audioEnded);
       this.audio.removeEventListener('canplay', this.audioCanPlay);
@@ -181,15 +169,15 @@ let player = new Vue({
       this.audio.addEventListener('canplay', this.audioCanPlay);
     },
 
-    audioError: function() {
+    audioError() {
       this.initCurrentTrack();
     },
 
-    audioEnded: function() {
+    audioEnded() {
       this.initCurrentTrack();
     },
 
-    audioCanPlay: function() {
+    audioCanPlay() {
       this.startPlaying();
     }
   }

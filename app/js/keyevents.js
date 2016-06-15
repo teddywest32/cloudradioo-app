@@ -27,11 +27,11 @@ let keyEvents = new Vue({
   },
 
   methods: {
-    registerKeyEvents: function() {
+    registerKeyEvents() {
       window.onkeyup = event => {
         var key = event.keyCode ? event.keyCode : event.which;
 
-        switch(key) {
+        switch (key) {
           case PLAY_PAUSE:
             store.dispatch('PLAY_PAUSE');
             break;

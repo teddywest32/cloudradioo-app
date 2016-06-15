@@ -76,10 +76,10 @@
     },
 
     methods: {
-      checkForFilter: function(key) {
+      checkForFilter(key) {
         return this.userFilters[key];
       }
     }
-  }
+  };
 
 </script>

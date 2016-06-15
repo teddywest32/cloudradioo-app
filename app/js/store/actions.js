@@ -12,8 +12,8 @@ export function changeFilter(store, key, value) {
 }
 
 export function toggleAllFilters(store) {
-  store.state.filter.toggleAll = ! store.state.filter.toggleAll;
-  store.state.filter.userFilters = store.state.filter.toggleAll ? store.state.filter.allGenres : {};
+  store.state.filter.toggleAll = !store.state.filter.toggleAll;
+  store.state.filter.userFilters = store.state.filter.toggleAll ? store.state.filter.allGenres : {};
   store.dispatch('SET_STORAGE');
 
   callChangeFilter(store, this);

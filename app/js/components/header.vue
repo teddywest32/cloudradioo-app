@@ -20,7 +20,6 @@
 <script type="text/babel">
 
   import { initCurrentTrack } from '../store/actions';
-  import Player from '../player';
 
   export default {
     vuex: {
@@ -34,21 +33,21 @@
       }
     },
 
-    data: function() {
+    data() {
       return {
         showToolsOnStart: true,
         showShareTrack: false
-      }
+      };
     },
 
-    ready: function() {
+    ready() {
       setTimeout(() => {
         this.showToolsOnStart = false;
       }, 2000);
     },
 
     methods: {
-      enableShareTrack: function() {
+      enableShareTrack() {
         this.showShareTrack = true;
 
         setTimeout(function() {
@@ -56,10 +55,10 @@
         }, 0);
       },
 
-      disableShareTrack: function() {
+      disableShareTrack() {
         this.showShareTrack = false;
       }
     }
-  }
+  };
 
 </script>

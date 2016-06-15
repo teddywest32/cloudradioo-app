@@ -22,9 +22,8 @@
         seekTrack
       }
     },
-
     methods: {
-      click: function(event) {
+      click(event) {
         let clientX = event.clientX;
         let progressWidth = document.querySelector('.progress-wrap').offsetWidth;
 
@@ -34,6 +33,6 @@
         this.seekTrack(durationTimeSeconds * clickedWidthPercent / 100);
       }
     }
-  }
+  };
 
 </script>

@@ -7,7 +7,7 @@ const mutations = {
   CHANGE_REPEAT(state) {
 
     // todo
-    state.repeat = ! state.repeat;
+    state.repeat = !state.repeat;
   },
 
   CHANGE_TITLE(state, title) {
@@ -19,4 +19,4 @@ const mutations = {
   }
 };
 
-export default {state, mutations}
+export default {state, mutations};

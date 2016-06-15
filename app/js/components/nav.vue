@@ -88,16 +88,16 @@
       }
     },
 
-    data: function() {
+    data() {
       return {
         openMenu: false
-      }
+      };
     },
 
     methods: {
-      toggleMainMenu: function() {
+      toggleMainMenu() {
         this.changeSubNav();
-        this.openMenu = ! this.openMenu;
+        this.openMenu = !this.openMenu;
       }
     },
 
@@ -107,8 +107,8 @@
 
     ready: function() {
       let savedVolume = localStorage.getItem('user-volume');
-      if(savedVolume == null) {
-        savedVolume = .75;
+      if (savedVolume == null) {
+        savedVolume = 0.75;
       }
 
       let slider = document.getElementById('volume');
@@ -127,6 +127,6 @@
         this.changeVolumeBy(value / 100);
       });
     }
-  }
+  };
 
 </script>

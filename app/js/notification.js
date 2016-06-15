@@ -16,7 +16,7 @@ let notification = new Vue({
       this.notify(
           `♫ ${this.currentTrack.title}`,
           `By: ${this.currentTrack.username} on ${this.currentTrack.genre}`
-      )
+      );
     },
 
     notify(title, body, silent = true, icon = require('../img/logo.png')) {
