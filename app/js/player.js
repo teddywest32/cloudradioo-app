@@ -44,7 +44,7 @@ let player = new Vue({
   },
 
   methods: {
-    start: function() {
+    start() {
       this.$http.get(this.apiUrl + 'api/all-genres').then(value => {
         store.dispatch('INIT_ALL_GENRES', value.data);
 
@@ -55,7 +55,7 @@ let player = new Vue({
       });
     },
 
-    initAllTracks: function() {
+    initAllTracks() {
       this.$http.get(this.apiUrl + 'api/songs', {filters: this.userFilters}).then(value => {
         store.dispatch('INIT_ALL_TRACKS', value.data);
 
@@ -74,13 +74,13 @@ let player = new Vue({
       });
     },
 
-    initPlayer: function() {
+    initPlayer() {
       store.dispatch('CREATE_AUDIO', this.currentTrack.id);
       notification.songPlayed();
       this.registerEventListener();
     },
 
-    startPlaying: function() {
+    startPlaying() {
       let title = this.currentTrack.title;
       let author = this.currentTrack.username;
       this.duration = this.currentTrack.duration;
@@ -98,7 +98,7 @@ let player = new Vue({
       this.initAudioContext();
     },
 
-    initAudioContext: function() {
+    initAudioContext() {
       let self = this;
 
       // We need to re-create the audio context in Firefox, because we close it earlier.
@@ -159,7 +159,7 @@ let player = new Vue({
       renderSVG();
     },
 
-    registerEventListener: function() {
+    registerEventListener() {
       this.audio.removeEventListener('error', this.audioError);
       this.audio.removeEventListener('ended', this.audioEnded);
       this.audio.removeEventListener('canplay', this.audioCanPlay);
@@ -169,15 +169,15 @@ let player = new Vue({
       this.audio.addEventListener('canplay', this.audioCanPlay);
     },
 
-    audioError: function() {
+    audioError() {
       this.initCurrentTrack();
     },
 
-    audioEnded: function() {
+    audioEnded() {
       this.initCurrentTrack();
     },
 
-    audioCanPlay: function() {
+    audioCanPlay() {
       this.startPlaying();
     }
   }

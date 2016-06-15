@@ -88,14 +88,14 @@
       }
     },
 
-    data: function() {
+    data() {
       return {
         openMenu: false
       };
     },
 
     methods: {
-      toggleMainMenu: function() {
+      toggleMainMenu() {
         this.changeSubNav();
         this.openMenu = !this.openMenu;
       }
